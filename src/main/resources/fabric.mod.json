@@ -3,13 +3,12 @@
 	"id": "opal-hud",
 	"version": "${version}",
 	"name": "Opal HUD",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Adds various information displays using HUD Lib.",
 	"authors": [
 		"AmpliCube"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/thomas0756/opal-hud"
 	},
 	"license": "MIT",
 	"icon": "assets/opal-hud/icon.png",
@@ -29,6 +28,7 @@
 		"fabricloader": ">=0.18.4",
 		"minecraft": "~1.21.11",
 		"java": ">=21",
-		"fabric-api": "*"
+		"fabric-api": "*",
+		"hudlib": ">=1.1.0"
 	}
 }
