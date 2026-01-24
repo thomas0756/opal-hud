@@ -1,5 +1,7 @@
 package com.amplicube.opalhud;
 
+import com.amplicube.opalhud.huds.TestHUD;
+import dev.wooferz.hudlib.HudManager;
 import net.fabricmc.api.ClientModInitializer;
 
 import org.slf4j.Logger;
@@ -11,6 +13,8 @@ public class OpalHUD implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		LOGGER.info("Hello Fabric world!");
+		LOGGER.info("Registering HUDs with HUD Lib...");
+		HudManager.registerHudElement(new TestHUD());
+		LOGGER.info("Done registering HUDs.");
 	}
 }

@@ -17,6 +17,9 @@
 		"client": [
 			"com.amplicube.opalhud.OpalHUD"
 		],
+		"modmenu": [
+			"com.amplicube.opalhud.config.OpalModMenuIntegration"
+		],
 		"fabric-datagen": [
 			"com.amplicube.opalhud.OpalHUDDataGenerator"
 		]
