@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"id": "opal-hud",
+	"version": "${version}",
+	"name": "Opal HUD",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"AmpliCube"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "MIT",
+	"icon": "assets/opal-hud/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"client": [
+			"com.amplicube.opalhud.OpalHUD"
+		],
+		"fabric-datagen": [
+			"com.amplicube.opalhud.OpalHUDDataGenerator"
+		]
+	},
+	"mixins": [
+		"opal-hud.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.18.4",
+		"minecraft": "~1.21.11",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
