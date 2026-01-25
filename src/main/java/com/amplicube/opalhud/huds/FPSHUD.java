@@ -118,7 +118,7 @@ public class FPSHUD extends HUDElement {
                 )
                 .option(Option.<Color>createBuilder()
                         .name(Component.literal("Text Color"))
-                        .binding(new Color(0xFFFFFF, true),
+                        .binding(new Color(0xFFFFFF, false),
                                 () -> config.text_color,
                                 newColor -> config.text_color = newColor)
                         .controller(ColorControllerBuilder::create)
