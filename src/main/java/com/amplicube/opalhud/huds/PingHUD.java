@@ -1,62 +1,87 @@
 package com.amplicube.opalhud.huds;
 
 import com.amplicube.opalhud.OpalHUD;
-import com.amplicube.opalhud.config.FPSHUDConfig;
-
+import com.amplicube.opalhud.config.PingHUDConfig;
 import com.amplicube.opalhud.utils;
+
 import dev.isxander.yacl3.api.Option;
 import dev.isxander.yacl3.api.OptionGroup;
 import dev.isxander.yacl3.api.controller.BooleanControllerBuilder;
 import dev.isxander.yacl3.api.controller.ColorControllerBuilder;
 
+import dev.isxander.yacl3.api.controller.FloatFieldControllerBuilder;
 import dev.wooferz.hudlib.HudAnchor;
 import dev.wooferz.hudlib.hud.HUDConfig;
 import dev.wooferz.hudlib.hud.HUDElement;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.network.chat.Component;
 
 import java.awt.*;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 
-public class FPSHUD extends HUDElement {
+public class PingHUD extends HUDElement {
 
     boolean inEditor = false;
-    public FPSHUDConfig config = new FPSHUDConfig();
-    
-    public FPSHUD() {
-        super("FPS HUD", 0, 0, 48, 15, 0, OpalHUD.MOD_ID, "fps-hud", HudAnchor.HorizontalAnchor.LEFT, HudAnchor.VerticalAnchor.TOP);
+
+    public PingHUDConfig config = new PingHUDConfig();
+
+    public PingHUD() {
+        super("Ping HUD", 0, 15, 38, 15, 0, OpalHUD.MOD_ID, "ping-hud", HudAnchor.HorizontalAnchor.LEFT, HudAnchor.VerticalAnchor.TOP);
     }
 
+    long ping = 0;
+    float total_delta = 99999;
+
     @Override
-    public void render(int x, int y, int width, int height, GuiGraphics graphics, float v) {
+    public void render(int x, int y, int width, int height, GuiGraphics graphics, float delta) {
         Minecraft mc = Minecraft.getInstance();
 
-        int current_fps = mc.getFps();
+        total_delta += delta;
+        if (total_delta > config.ping_rate * 20) {
+            total_delta = 0;
 
-        if (inEditor) {
-            current_fps = 999;
+            ServerData current_server = mc.getCurrentServer();
+            if (current_server != null) {
+                String host = current_server.ip;
+                int port = 25565;
+                int timeout = 5000;
+                long before_time = System.currentTimeMillis();
+                try (Socket socket = new Socket()) {
+                    socket.connect(new InetSocketAddress(host, port), timeout);
+                    ping = System.currentTimeMillis() - before_time;
+                } catch (IOException e) {
+                    OpalHUD.LOGGER.error("Couldn't ping server", e);
+                }
+            }
         }
+
+        String ping_string = String.valueOf(ping);
+
+        if (inEditor) ping_string = "100";
+
+        if (!config.num_only) ping_string += "ms";
+
 
         Color text_color;
 
-        String fps_string = String.valueOf(current_fps);
-        if (!config.num_only) fps_string += " FPS";
-
         if (!config.static_color) {
-            if (current_fps >= 110) text_color = new Color(0x008000);
-            else if (current_fps >= 55) text_color = new Color(0x55FF55);
-            else if (current_fps >= 28) text_color = new Color(0xFFFF00);
-            else text_color = new Color(0xFF5555);
+            if (mc.isLocalServer()) text_color = Color.white;
+            else if (ping >= 200) text_color = new Color(0xFF5555);
+            else if (ping >= 100) text_color = new Color(0xFFFF00);
+            else text_color = new Color(0x55FF55);
         }
         else {
             text_color = config.text_color;
         }
 
-        graphics.fill(x, y, x + mc.font.width(fps_string) + 8, y + height, utils.ColorToInt(config.bg_color, true));
-        graphics.drawString(mc.font, fps_string, x + 4, y + 4, utils.ColorToInt(text_color, false));
+        graphics.fill(x, y, x + mc.font.width(ping_string) + 8, y + height, utils.ColorToInt(config.bg_color, true));
+        graphics.drawString(mc.font, ping_string, x + 4, y + 4, utils.ColorToInt(text_color, false));
     }
-
     @Override
     public void editorClosed() {
         inEditor = false;
@@ -69,7 +94,7 @@ public class FPSHUD extends HUDElement {
 
     @Override
     public Class<?> getConfigType() {
-        return FPSHUDConfig.class;
+        return PingHUDConfig.class;
     }
 
     @Override
@@ -80,8 +105,8 @@ public class FPSHUD extends HUDElement {
     @Override
     public void setConfig(HUDConfig config) {
         if (config != null) {
-            if (config instanceof FPSHUDConfig) {
-                this.config = (FPSHUDConfig) config;
+            if (config instanceof PingHUDConfig) {
+                this.config = (PingHUDConfig) config;
             }
         }
     }
@@ -90,7 +115,16 @@ public class FPSHUD extends HUDElement {
     public OptionGroup generateConfig() {
 
         return OptionGroup.createBuilder()
-                .name(Component.literal("FPS HUD"))
+                .name(net.minecraft.network.chat.Component.literal("Ping HUD"))
+                .option(Option.<Float>createBuilder()
+                        .name(Component.literal("Ping Rate (Seconds)"))
+                        .binding(5f,
+                                () -> config.ping_rate,
+                                newFloat -> config.ping_rate = newFloat)
+                        .controller(opt -> FloatFieldControllerBuilder.create(opt)
+                                .min(1f))
+                        .build()
+                )
                 .option(Option.<Boolean>createBuilder()
                         .name(Component.literal("Number Only"))
                         .binding(false,
@@ -127,3 +161,4 @@ public class FPSHUD extends HUDElement {
                 .build();
     }
 }
+
