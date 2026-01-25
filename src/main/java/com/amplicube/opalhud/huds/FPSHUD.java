@@ -25,7 +25,7 @@ public class FPSHUD extends HUDElement {
     public FPSHUDConfig config = new FPSHUDConfig();
     
     public FPSHUD() {
-        super("FPS HUD", 100, 100, 48, 15, 0, OpalHUD.MOD_ID, "fps-hud", HudAnchor.HorizontalAnchor.RIGHT, HudAnchor.VerticalAnchor.MIDDLE);
+        super("FPS HUD", 0, 0, 48, 15, 0, OpalHUD.MOD_ID, "fps-hud", HudAnchor.HorizontalAnchor.LEFT, HudAnchor.VerticalAnchor.TOP);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class FPSHUD extends HUDElement {
             current_fps = 999;
         }
 
-        Color text_color = Color.white;
+        Color text_color;
 
         String fps_string = String.valueOf(current_fps);
         if (!config.num_only) {
@@ -47,7 +47,7 @@ public class FPSHUD extends HUDElement {
 
 
         if (!config.static_color) {
-            if (current_fps >= 110) text_color = new Color(0x005500);
+            if (current_fps >= 110) text_color = new Color(0x008000);
             else if (current_fps >= 55) text_color = new Color(0x55FF55);
             else if (current_fps >= 28) text_color = new Color(0xFFFF00);
             else text_color = new Color(0xFF5555);
