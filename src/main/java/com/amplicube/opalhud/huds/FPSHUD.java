@@ -1,7 +1,7 @@
 package com.amplicube.opalhud.huds;
 
 import com.amplicube.opalhud.OpalHUD;
-import com.amplicube.opalhud.config.TestHUDConfig;
+import com.amplicube.opalhud.config.FPSHUDConfig;
 
 import com.amplicube.opalhud.utils;
 import dev.isxander.yacl3.api.Option;
@@ -22,23 +22,42 @@ import java.awt.*;
 public class FPSHUD extends HUDElement {
 
     boolean inEditor = false;
-    public TestHUDConfig config = new TestHUDConfig();
+    public FPSHUDConfig config = new FPSHUDConfig();
     
     public FPSHUD() {
-        super("FPS HUD", 100, 100, 48, 15, 4, OpalHUD.MOD_ID, "fps-hud", HudAnchor.HorizontalAnchor.RIGHT, HudAnchor.VerticalAnchor.MIDDLE);
+        super("FPS HUD", 100, 100, 48, 15, 0, OpalHUD.MOD_ID, "fps-hud", HudAnchor.HorizontalAnchor.RIGHT, HudAnchor.VerticalAnchor.MIDDLE);
     }
 
     @Override
     public void render(int x, int y, int width, int height, GuiGraphics graphics, float v) {
         Minecraft mc = Minecraft.getInstance();
 
-        String fps_string = String.valueOf(mc.getFps());
+        int current_fps = mc.getFps();
+
+        if (inEditor) {
+            current_fps = 999;
+        }
+
+        Color text_color = Color.white;
+
+        String fps_string = String.valueOf(current_fps);
         if (!config.num_only) {
             fps_string += " FPS";
         }
 
-        graphics.fill(x, y, x + mc.font.width(fps_string) + padding * 2, y + height, utils.ColorToInt(config.bg_color));
-        graphics.drawString(mc.font, fps_string, x + padding, y + padding, utils.ColorToInt(config.text_color));
+
+        if (!config.static_color) {
+            if (current_fps >= 110) text_color = new Color(0x005500);
+            else if (current_fps >= 55) text_color = new Color(0x55FF55);
+            else if (current_fps >= 28) text_color = new Color(0xFFFF00);
+            else text_color = new Color(0xFF5555);
+        }
+        else {
+            text_color = config.text_color;
+        }
+
+        graphics.fill(x, y, x + mc.font.width(fps_string) + 8, y + height, utils.ColorToInt(config.bg_color, true));
+        graphics.drawString(mc.font, fps_string, x + 4, y + 4, utils.ColorToInt(text_color, false));
     }
 
     @Override
@@ -53,7 +72,7 @@ public class FPSHUD extends HUDElement {
 
     @Override
     public Class<?> getConfigType() {
-        return TestHUDConfig.class;
+        return FPSHUDConfig.class;
     }
 
     @Override
@@ -64,24 +83,26 @@ public class FPSHUD extends HUDElement {
     @Override
     public void setConfig(HUDConfig config) {
         if (config != null) {
-            if (config instanceof TestHUDConfig) {
-                this.config = (TestHUDConfig) config;
+            if (config instanceof FPSHUDConfig) {
+                this.config = (FPSHUDConfig) config;
             }
         }
     }
 
     @Override
     public OptionGroup generateConfig() {
+
         return OptionGroup.createBuilder()
                 .name(Component.literal("FPS HUD"))
                 .option(Option.<Boolean>createBuilder()
                         .name(Component.literal("Number Only"))
-                        .binding(true,
+                        .binding(false,
                                 () -> config.num_only,
                                 newBool -> config.num_only = newBool)
                         .controller(BooleanControllerBuilder::create)
                         .build()
-                ).option(Option.<Color>createBuilder()
+                )
+                .option(Option.<Color>createBuilder()
                         .name(Component.literal("Background Color"))
                         .binding(new Color(0x80000000, true),
                                 () -> config.bg_color,
@@ -90,13 +111,20 @@ public class FPSHUD extends HUDElement {
                                 .allowAlpha(true))
                         .build()
                 )
+                .option(Option.<Boolean>createBuilder()
+                        .name(Component.literal("Static Text Color"))
+                        .binding(true,
+                                () -> config.static_color,
+                                newBool -> config.static_color = newBool)
+                        .controller(BooleanControllerBuilder::create)
+                        .build()
+                )
                 .option(Option.<Color>createBuilder()
                         .name(Component.literal("Text Color"))
-                        .binding(new Color(0xFFFFFFFF, true),
+                        .binding(new Color(0xFFFFFF, true),
                                 () -> config.text_color,
                                 newColor -> config.text_color = newColor)
-                        .controller(opt -> ColorControllerBuilder.create(opt)
-                                .allowAlpha(true))
+                        .controller(ColorControllerBuilder::create)
                         .build()
                 )
                 .build();
