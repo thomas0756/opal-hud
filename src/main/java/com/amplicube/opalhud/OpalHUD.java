@@ -4,6 +4,7 @@ import com.amplicube.opalhud.huds.CoordsHUD;
 import com.amplicube.opalhud.huds.FPSHUD;
 import com.amplicube.opalhud.huds.PingHUD;
 
+import com.amplicube.opalhud.huds.ServerAddressHUD;
 import dev.wooferz.hudlib.HudManager;
 import net.fabricmc.api.ClientModInitializer;
 
@@ -20,6 +21,7 @@ public class OpalHUD implements ClientModInitializer {
 		HudManager.registerHudElement(new FPSHUD());
 		HudManager.registerHudElement(new PingHUD());
 		HudManager.registerHudElement(new CoordsHUD());
+		HudManager.registerHudElement(new ServerAddressHUD());
 		LOGGER.info("Done registering HUDs.");
 	}
 }
