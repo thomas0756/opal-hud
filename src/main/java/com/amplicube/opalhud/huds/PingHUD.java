@@ -2,7 +2,7 @@ package com.amplicube.opalhud.huds;
 
 import com.amplicube.opalhud.OpalHUD;
 import com.amplicube.opalhud.config.PingHUDConfig;
-import com.amplicube.opalhud.utils;
+import com.amplicube.opalhud.Utils;
 
 import dev.isxander.yacl3.api.Option;
 import dev.isxander.yacl3.api.OptionGroup;
@@ -79,8 +79,8 @@ public class PingHUD extends HUDElement {
             text_color = config.text_color;
         }
 
-        graphics.fill(x, y, x + mc.font.width(ping_string) + 8, y + height, utils.ColorToInt(config.bg_color, true));
-        graphics.drawString(mc.font, ping_string, x + 4, y + 4, utils.ColorToInt(text_color, false));
+        graphics.fill(x, y, x + mc.font.width(ping_string) + 8, y + height, Utils.ColorToInt(config.bg_color, true));
+        graphics.drawString(mc.font, ping_string, x + 4, y + 4, Utils.ColorToInt(text_color, false));
     }
     @Override
     public void editorClosed() {

@@ -1,13 +1,11 @@
 package com.amplicube.opalhud;
 
-import com.amplicube.opalhud.huds.CoordsHUD;
-import com.amplicube.opalhud.huds.FPSHUD;
-import com.amplicube.opalhud.huds.PingHUD;
+import com.amplicube.opalhud.huds.*;
 
-import com.amplicube.opalhud.huds.ServerAddressHUD;
 import dev.wooferz.hudlib.HudManager;
 import net.fabricmc.api.ClientModInitializer;
 
+import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +20,10 @@ public class OpalHUD implements ClientModInitializer {
 		HudManager.registerHudElement(new PingHUD());
 		HudManager.registerHudElement(new CoordsHUD());
 		HudManager.registerHudElement(new ServerAddressHUD());
+
+		HudManager.registerHudElement(new ReachDistanceHUD());
+		AttackEntityCallback.EVENT.register(ReachDistanceHUD::updateLastDistance);
+
 		LOGGER.info("Done registering HUDs.");
 	}
 }

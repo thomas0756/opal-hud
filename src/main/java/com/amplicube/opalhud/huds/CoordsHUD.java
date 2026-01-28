@@ -3,7 +3,7 @@ package com.amplicube.opalhud.huds;
 import com.amplicube.opalhud.OpalHUD;
 import com.amplicube.opalhud.config.CoordsHUDConfig;
 
-import com.amplicube.opalhud.utils;
+import com.amplicube.opalhud.Utils;
 import dev.isxander.yacl3.api.Option;
 import dev.isxander.yacl3.api.OptionGroup;
 import dev.isxander.yacl3.api.controller.BooleanControllerBuilder;
@@ -72,30 +72,30 @@ public class CoordsHUD extends HUDElement {
 
                 widest_inc_biome = Math.max(widest_width, mc.font.width(biome_string.getString()));
 
-                graphics.fill(hudx, hudy + 38, hudx + widest_inc_biome + ((config.nums_only) ? 18 : 0) + 4 + ((config.show_dirs) ? 24 : 0), hudy + 53 , utils.ColorToInt(config.bg_color, true));
+                graphics.fill(hudx, hudy + 38, hudx + widest_inc_biome + ((config.nums_only) ? 18 : 0) + 4 + ((config.show_dirs) ? 24 : 0), hudy + 53 , Utils.ColorToInt(config.bg_color, true));
 
                 int biome_offset = 0;
                 if (config.nums_only) {
                     biome_offset = 36;
-                    graphics.drawString(mc.font, "Biome:", hudx + 4, hudy + y_offset, utils.ColorToInt(config.label_color, false));
+                    graphics.drawString(mc.font, "Biome:", hudx + 4, hudy + y_offset, Utils.ColorToInt(config.label_color, false));
                 }
-                graphics.drawString(mc.font, biome_string, hudx + 4 + biome_offset, hudy + y_offset, utils.ColorToInt(config.number_color, false));
+                graphics.drawString(mc.font, biome_string, hudx + 4 + biome_offset, hudy + y_offset, Utils.ColorToInt(config.number_color, false));
             }
 
             y_offset -= 41;
 
-            graphics.fill(hudx, hudy, hudx + widest_inc_biome + ((config.nums_only) ? 18 : 0) + 4 + ((config.show_dirs) ? 24 : 0), hudy + 38 , utils.ColorToInt(config.bg_color, true));
+            graphics.fill(hudx, hudy, hudx + widest_inc_biome + ((config.nums_only) ? 18 : 0) + 4 + ((config.show_dirs) ? 24 : 0), hudy + 38 , Utils.ColorToInt(config.bg_color, true));
 
             if (config.nums_only) {
                 x_offset = 18;
-                graphics.drawString(mc.font, "X:", hudx + 4, hudy + 4 + y_offset, utils.ColorToInt(config.label_color, false));
-                graphics.drawString(mc.font, "Y:", hudx + 4, hudy + 15 + y_offset, utils.ColorToInt(config.label_color, false));
-                graphics.drawString(mc.font, "Z:", hudx + 4, hudy + 26 + y_offset, utils.ColorToInt(config.label_color, false));
+                graphics.drawString(mc.font, "X:", hudx + 4, hudy + 4 + y_offset, Utils.ColorToInt(config.label_color, false));
+                graphics.drawString(mc.font, "Y:", hudx + 4, hudy + 15 + y_offset, Utils.ColorToInt(config.label_color, false));
+                graphics.drawString(mc.font, "Z:", hudx + 4, hudy + 26 + y_offset, Utils.ColorToInt(config.label_color, false));
             }
 
-            graphics.drawString(mc.font, x_string, hudx + x_offset, hudy + 4 + y_offset, utils.ColorToInt(config.number_color, false));
-            graphics.drawString(mc.font, y_string, hudx + x_offset, hudy + 15 + y_offset, utils.ColorToInt(config.number_color, false));
-            graphics.drawString(mc.font, z_string, hudx + x_offset, hudy + 26 + y_offset, utils.ColorToInt(config.number_color, false));
+            graphics.drawString(mc.font, x_string, hudx + x_offset, hudy + 4 + y_offset, Utils.ColorToInt(config.number_color, false));
+            graphics.drawString(mc.font, y_string, hudx + x_offset, hudy + 15 + y_offset, Utils.ColorToInt(config.number_color, false));
+            graphics.drawString(mc.font, z_string, hudx + x_offset, hudy + 26 + y_offset, Utils.ColorToInt(config.number_color, false));
 
             x_offset += widest_width + 12;
 
@@ -139,14 +139,14 @@ public class CoordsHUD extends HUDElement {
                     compass_dir = "N";
                 }
 
-                graphics.drawString(mc.font, compass_dir, hudx + x_offset, hudy + 15 + y_offset, utils.ColorToInt(config.number_color, false));
+                graphics.drawString(mc.font, compass_dir, hudx + x_offset, hudy + 15 + y_offset, Utils.ColorToInt(config.number_color, false));
                 if (config.nums_only) {
-                    graphics.drawString(mc.font, x_dir, hudx + x_offset, hudy + 4 + y_offset, utils.ColorToInt(config.label_color, false));
-                    graphics.drawString(mc.font, z_dir, hudx + x_offset, hudy + 26 + y_offset, utils.ColorToInt(config.label_color, false));
+                    graphics.drawString(mc.font, x_dir, hudx + x_offset, hudy + 4 + y_offset, Utils.ColorToInt(config.label_color, false));
+                    graphics.drawString(mc.font, z_dir, hudx + x_offset, hudy + 26 + y_offset, Utils.ColorToInt(config.label_color, false));
                 }
                 else {
-                    graphics.drawString(mc.font, x_dir, hudx + x_offset, hudy + 4 + y_offset, utils.ColorToInt(config.number_color, false));
-                    graphics.drawString(mc.font, z_dir, hudx + x_offset, hudy + 26 + y_offset, utils.ColorToInt(config.number_color, false));
+                    graphics.drawString(mc.font, x_dir, hudx + x_offset, hudy + 4 + y_offset, Utils.ColorToInt(config.number_color, false));
+                    graphics.drawString(mc.font, z_dir, hudx + x_offset, hudy + 26 + y_offset, Utils.ColorToInt(config.number_color, false));
                 }
 
                 //x_offset += 18;

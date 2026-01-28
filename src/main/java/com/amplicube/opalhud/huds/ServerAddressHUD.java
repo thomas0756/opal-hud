@@ -2,7 +2,7 @@ package com.amplicube.opalhud.huds;
 
 import com.amplicube.opalhud.OpalHUD;
 import com.amplicube.opalhud.config.ServerAddressHUDConfig;
-import com.amplicube.opalhud.utils;
+import com.amplicube.opalhud.Utils;
 
 import dev.isxander.yacl3.api.Option;
 import dev.isxander.yacl3.api.OptionGroup;
@@ -45,11 +45,11 @@ public class ServerAddressHUD extends HUDElement {
         int address_width = mc.font.width(address_string) + 4;
         int bg_start = x - address_width - ((config.show_labels) ? 44 : 0) - 8;
 
-        graphics.fill(bg_start + width, y, x + width, y + height, utils.ColorToInt(config.bg_color, true));
+        graphics.fill(bg_start + width, y, x + width, y + height, Utils.ColorToInt(config.bg_color, true));
 
-        graphics.drawString(mc.font, address_string, x - address_width + width, y + 4, utils.ColorToInt(config.text_color, false));
+        graphics.drawString(mc.font, address_string, x - address_width + width, y + 4, Utils.ColorToInt(config.text_color, false));
 
-        if (config.show_labels) graphics.drawString(mc.font, "Server:", bg_start + 4 + width, y + 4, utils.ColorToInt(config.label_color, false));
+        if (config.show_labels) graphics.drawString(mc.font, "Server:", bg_start + 4 + width, y + 4, Utils.ColorToInt(config.label_color, false));
     }
 
     @Override
