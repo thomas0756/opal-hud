@@ -17,7 +17,7 @@ public class OpalHUD implements ClientModInitializer {
 	public void onInitializeClient() {
 		LOGGER.info("Registering HUDs with HUD Lib...");
 		HudManager.registerHudElement(new FPSHUD());
-		HudManager.registerHudElement(new PingHUD());
+		//HudManager.registerHudElement(new PingHUD());
 		HudManager.registerHudElement(new CoordsHUD());
 		HudManager.registerHudElement(new ServerAddressHUD());
 
