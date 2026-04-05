@@ -5,23 +5,23 @@
 	"name": "Opal HUD",
 	"description": "Adds various information displays using HUD Lib.",
 	"authors": [
-		"AmpliCube"
+		"thomas0756"
 	],
 	"contact": {
 		"sources": "https://github.com/thomas0756/opal-hud"
 	},
 	"license": "MIT",
 	"icon": "assets/opal-hud/icon.png",
-	"environment": "*",
+	"environment": "client",
 	"entrypoints": {
 		"client": [
-			"com.amplicube.opalhud.OpalHUD"
+			"com.thomas0756.opalhud.OpalHUD"
 		],
 		"modmenu": [
-			"com.amplicube.opalhud.config.OpalModMenuIntegration"
+			"com.thomas0756.opalhud.config.OpalModMenuIntegration"
 		],
 		"fabric-datagen": [
-			"com.amplicube.opalhud.OpalHUDDataGenerator"
+			"com.thomas0756.opalhud.OpalHUDDataGenerator"
 		]
 	},
 	"mixins": [

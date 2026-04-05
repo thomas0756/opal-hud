@@ -1,4 +1,4 @@
-package com.amplicube.opalhud;
+package com.thomas0756.opalhud;
 
 import java.awt.*;
 

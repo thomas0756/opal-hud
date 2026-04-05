@@ -1,4 +1,4 @@
-package com.amplicube.opalhud.config;
+package com.thomas0756.opalhud.config;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;

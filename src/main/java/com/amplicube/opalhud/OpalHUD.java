@@ -1,6 +1,6 @@
-package com.amplicube.opalhud;
+package com.thomas0756.opalhud;
 
-import com.amplicube.opalhud.huds.*;
+import com.thomas0756.opalhud.huds.*;
 
 import dev.wooferz.hudlib.HudManager;
 import net.fabricmc.api.ClientModInitializer;

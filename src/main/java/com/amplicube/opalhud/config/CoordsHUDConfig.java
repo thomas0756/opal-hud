@@ -1,4 +1,4 @@
-package com.amplicube.opalhud.config;
+package com.thomas0756.opalhud.config;
 
 import dev.wooferz.hudlib.hud.HUDConfig;
 

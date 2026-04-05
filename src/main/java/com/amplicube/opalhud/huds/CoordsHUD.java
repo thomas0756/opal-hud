@@ -1,9 +1,9 @@
-package com.amplicube.opalhud.huds;
+package com.thomas0756.opalhud.huds;
 
-import com.amplicube.opalhud.OpalHUD;
-import com.amplicube.opalhud.config.CoordsHUDConfig;
+import com.thomas0756.opalhud.OpalHUD;
+import com.thomas0756.opalhud.config.CoordsHUDConfig;
 
-import com.amplicube.opalhud.Utils;
+import com.thomas0756.opalhud.Utils;
 import dev.isxander.yacl3.api.Option;
 import dev.isxander.yacl3.api.OptionGroup;
 import dev.isxander.yacl3.api.controller.BooleanControllerBuilder;
